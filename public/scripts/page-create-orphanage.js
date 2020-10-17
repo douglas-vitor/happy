@@ -1,10 +1,10 @@
 //create map
 const map = L.map('mapid')
-.setView([-27.2034655, -49.6335723], 15);
+    .setView([-27.2034655, -49.6335723], 15);
 
 //create and add titlelayer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-.addTo(map);
+    .addTo(map);
 
 //create icon
 const icon = L.icon({
@@ -24,8 +24,8 @@ map.on('click', (event) => {
 
     marker && map.removeLayer(marker)
 
-    marker =L.marker([lat, lng], { icon })
-    .addTo(map)
+    marker = L.marker([lat, lng], { icon })
+        .addTo(map)
 })
 
 
@@ -33,10 +33,10 @@ map.on('click', (event) => {
 function addPhotoField() {
     const container = document.querySelector('#images')
     const fieldsContainer = document.querySelectorAll('.new-upload')
-    const newFieldContainer = fieldsContainer[fieldsContainer.length -1].cloneNode(true)
-    
+    const newFieldContainer = fieldsContainer[fieldsContainer.length - 1].cloneNode(true)
+
     const input = newFieldContainer.children[0]
-    if(input.value == '') {
+    if (input.value == '') {
         return
     }
 
@@ -48,8 +48,8 @@ function deletField(event) {
     const span = event.currentTarget
     const fieldsContainer = document.querySelectorAll('.new-upload')
 
-    if(fieldsContainer.length <= 1) {
-        span.parentNode.children[0].value =''
+    if (fieldsContainer.length <= 1) {
+        span.parentNode.children[0].value = ''
         return
     }
 
@@ -58,14 +58,26 @@ function deletField(event) {
 
 function toggleSelect(event) {
     document.querySelectorAll('.button-select button')
-    .forEach((button) => {
-        button.classList.remove('active')
-    })
+        .forEach((button) => {
+            button.classList.remove('active')
+        })
 
     const button = event.currentTarget
     button.classList.add('active')
 
     const input = document.querySelector('[name="open_on_weekends"]')
-    
+
     input.value = button.dataset.value
+}
+
+function validate(event) {
+    const lat = document.querySelector('.map-container input[name="lat"]').value
+    const lng = document.querySelector('.map-container input[name="lng"]').value
+
+    if (lat == '' || lng == '') {
+        event.preventDefault()
+        alert("Selecione um ponto no mapa!")
+    } else {
+        return
+    }
 }
